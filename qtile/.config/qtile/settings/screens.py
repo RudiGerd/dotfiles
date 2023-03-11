@@ -1,11 +1,8 @@
 from libqtile.config import Screen
 from libqtile import bar
-from settings.widgets import init_widgets_screen1, init_widgets_screen2
-
-widgets_screen1 = init_widgets_screen1()
-widgets_screen2 = init_widgets_screen2()
+from settings.widgets import primary_widgets, secondary_widgets
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=20, opacity=0.85, background= "000000")),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=20, opacity=0.85, background= "000000"))]
+    return [Screen(top=bar.Bar(widgets=primary_widgets, size=20, opacity=0.85, background= "000000")),
+            Screen(top=bar.Bar(widgets=secondary_widgets, size=20, opacity=0.85, background= "000000"))]
 screens = init_screens()
