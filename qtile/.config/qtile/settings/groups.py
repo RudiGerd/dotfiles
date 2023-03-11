@@ -4,16 +4,16 @@ from settings.keys import mod, keys
 
 # Define groups
 groups = [
-    Group("1", label="1: ", layout="monadtall"),
-    Group("2", label="2: ", layout="bsp"),
-    Group("3", label="3: ", layout="bsp"),
-    Group("4", label="4: ", layout="bsp"),
-    Group("5", label="5: ", layout="monadtall"),
-    Group("6", label="6: ", layout="bsp"),
-    Group("7", label="7: ", layout="monadtall"),
-    Group("8", label="8: ", layout="monadtall"),
-    Group("9", label="9: ", layout="max"),
-    Group("0", label="0: ", layout="max"),
+    Group("1", label="1:", layout="monadtall"),
+    Group("2", label="2:", layout="bsp"),
+    Group("3", label="3:", layout="bsp"),
+    Group("4", label="4:", layout="bsp"),
+    Group("5", label="5:", layout="monadtall"),
+    Group("6", label="6:", layout="bsp"),
+    Group("7", label="7:", layout="monadtall"),
+    Group("8", label="8:", layout="monadtall"),
+    Group("9", label="9:", layout="max"),
+#    Group("0", label="0: ", layout="max"),
 ]
 
 for i in groups:

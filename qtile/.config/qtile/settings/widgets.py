@@ -1,7 +1,7 @@
 from libqtile import widget, qtile
 from libqtile.command import lazy
-from settings.keys import keys, mod, myTerm
-from settings.groups import groups
+from libqtile.widget import Spacer
+from settings.keys import myTerm
 from settings.colors import colors
 import socket
 import os

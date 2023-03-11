@@ -1,5 +1,3 @@
-# COLORS FOR THE BAR
-
 def init_colors():
     return [["#2F343F", "#2F343F"], # color 0
             ["#2F343F", "#2F343F"], # color 1

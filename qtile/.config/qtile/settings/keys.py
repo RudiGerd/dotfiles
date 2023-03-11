@@ -1,12 +1,13 @@
-from libqtile.config import Key, Group
+from libqtile.config import Key
 from libqtile.command import lazy
-import os
+from settings.path import *
+from os import path
 
 #mod4 or mod = super key
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
-home = os.path.expanduser('~')
+home = path.expanduser('~')
 
 myTerm = "alacritty" # My terminal of choice
 
@@ -18,7 +19,9 @@ keys = [
     ([mod], "q", lazy.window.kill()),
     ([mod], "t", lazy.spawn('xterm')),
     ([mod], "v", lazy.spawn('pavucontrol')),
-    ([mod], "d", lazy.spawn('nwggrid -p -o 0.4')),
+    ([mod], "m", lazy.spawn(path.join(rofi_path, "colorful/launcher.sh"))),
+    ([mod], "p", lazy.spawn(path.join(rofi_path, "powermenu/powermenu.sh"))),
+    ([mod, "shift"], "m", lazy.spawn(path.join(rofi_path, "text/launcher.sh"))),
     ([mod], "Escape", lazy.spawn('xkill')),
     ([mod], "Return", lazy.spawn(myTerm)),
     ([mod], "KP_Enter", lazy.spawn('alacritty')),
