@@ -1,3 +1,5 @@
 [user]
 	name = RudiGerd
 	email = rudi.gerd.it@gmail.com
+[core]
+	excludesfile = /home/rudigerd/.gitignore_global
