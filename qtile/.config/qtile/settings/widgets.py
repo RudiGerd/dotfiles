@@ -3,6 +3,7 @@ from libqtile.command import lazy
 from libqtile.widget import Spacer
 from settings.keys import myTerm
 from settings.colors import colors
+from settings.path import *
 import socket
 import os
 
@@ -17,7 +18,7 @@ def init_widgets_defaults():
 
 widget_defaults = init_widgets_defaults()
 
-def init_widgets():
+def init_widgets_list():
     prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
     return [
         widget.Sep(
@@ -26,9 +27,9 @@ def init_widgets():
             foreground = colors[15],
             background = colors[15]
         ),
-        widget.Image(
-            filename = "~/.config/qtile/icons/garuda-red.png",
-            iconsize = 9,
+        widget.TextBox(
+            text = ' ',
+            fontsize = 15,
             background = colors[15],
             mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn('jgmenu_run')}
         ),
@@ -74,22 +75,22 @@ def init_widgets():
             #unfocused_border = 'border'
         ),
         widget.CurrentLayoutIcon(
-            custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
+            # custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
             foreground = colors[5],
             background = colors[3],
             padding = 0,
             scale = 0.7
         ),
-        widget.CurrentLayout(
-            font = "Noto Sans Bold",
-            fontsize = 12,
-            foreground = colors[5],
-            background = colors[3]
-        ),                
+        # widget.CurrentLayout(
+        #     font = "Noto Sans Bold",
+        #     fontsize = 12,
+        #     foreground = colors[5],
+        #     background = colors[3]
+        # ),                
     ]
 
 primary_widgets = [
-    *init_widgets(),
+    *init_widgets_list(),
     widget.Net(
         font="Noto Sans",
         fontsize=12,
@@ -133,7 +134,7 @@ primary_widgets = [
 ]
 
 secondary_widgets = [
-    *init_widgets(),
+    *init_widgets_list(),
     widget.Clock(
         foreground = colors[9],
         background = colors[23],

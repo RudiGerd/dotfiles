@@ -22,6 +22,7 @@ keys = [
     ([mod], "m", lazy.spawn(path.join(rofi_path, "colorful/launcher.sh"))),
     ([mod], "p", lazy.spawn(path.join(rofi_path, "powermenu/powermenu.sh"))),
     ([mod, "shift"], "m", lazy.spawn(path.join(rofi_path, "text/launcher.sh"))),
+    ([mod], "o", lazy.spawn('rofimoji')),
     ([mod], "Escape", lazy.spawn('xkill')),
     ([mod], "Return", lazy.spawn(myTerm)),
     ([mod], "KP_Enter", lazy.spawn('alacritty')),
@@ -40,7 +41,7 @@ keys = [
     (["mod1", "control"], "u", lazy.spawn('pavucontrol')),
 # ALT + ... KEYS
     (["mod1"], "p", lazy.spawn('pamac-manager')),
-    (["mod1"], "f", lazy.spawn('firedragon')),
+    (["mod1"], "f", lazy.spawn('firefox')),
     (["mod1"], "m", lazy.spawn('pcmanfm')),
     (["mod1"], "w", lazy.spawn('garuda-welcome')),
 # CONTROL + SHIFT KEYS

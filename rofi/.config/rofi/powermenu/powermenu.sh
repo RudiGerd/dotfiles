@@ -13,13 +13,14 @@ rofi_command="rofi -theme $dir/$theme"
 
 # Options
 shutdown=" ⏻ "
-reboot=" ﰇ "
+reboot="  "
 lock="  "
 suspend="  "
+hibernate="  "
 logout="  "
 
 # Variable passed to rofi
-options="$shutdown\n$reboot\n$lock\n$suspend" #\n$logout
+options="$shutdown\n$reboot\n$lock\n$suspend\n$hibernate" #\n$logout
 chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 2)"
 case $chosen in
 $shutdown)
@@ -29,12 +30,19 @@ $reboot)
 	systemctl reboot
 	;;
 $lock)
-	slock
+	i3lock
 	;;
 $suspend)
-	mpc -q pause
-	amixer set Master mute
+#	mpc -q pause
+#	amixer set Master mute
+	i3lock
 	systemctl suspend
+	;;
+$hibernate)
+#	mpc -q pause
+#	amixer set Master mute
+	i3lock
+	systemctl hibernate
 	;;
 # $logout)
 # 	qtile run-cmd shutdown now
