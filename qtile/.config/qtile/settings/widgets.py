@@ -8,13 +8,13 @@ import socket
 import os
 
 def base(fg='text', bg='dark'):
-    return {'foreground': colors[14],'background': colors[15]}
+    return {'foreground': colors[0],'background': colors[1]}
 
 def init_widgets_defaults():
     return dict(font="Noto Sans",
                 fontsize = 9,
                 padding = 2,
-                background=colors[1])
+                background=colors[3])
 
 widget_defaults = init_widgets_defaults()
 
@@ -24,17 +24,17 @@ def init_widgets_list():
         widget.Sep(
             linewidth = 1,
             padding = 10,
-            foreground = colors[15],
-            background = colors[15]
+            foreground = colors[1],
+            background = colors[1]
         ),
         widget.TextBox(
             text = ' ',
             fontsize = 15,
-            background = colors[15],
+            background = colors[1],
             mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn('jgmenu_run')}
         ),
         widget.GroupBox(
-            **base(bg=colors[15]),
+            **base(bg=colors[1]),
             
             font='UbuntuMono Nerd Font',
             fontsize = 15,
@@ -44,16 +44,16 @@ def init_widgets_list():
             padding_x = 4,
             borderwidth = 3,
 
-            active=colors[5],
-            inactive=colors[6],
+            active=colors[2],
+            inactive=colors[4],
             rounded= True,
             highlight_method='block',
             urgent_alert_method='block',
-            urgent_border=colors[16],
-            this_current_screen_border=colors[20],
-            this_screen_border=colors[17],
-            other_current_screen_border=colors[13],
-            other_screen_border=colors[17],
+            urgent_border=colors[6],
+            this_current_screen_border=colors[7],
+            this_screen_border=colors[5],
+            other_current_screen_border=colors[7],
+            other_screen_border=colors[5],
             disable_drag=True
         ),
         widget.TaskList(
@@ -65,69 +65,70 @@ def init_widgets_list():
             padding_y=0,
             margin_y=0,
             fontsize=14,
-            border=colors[7],
-            foreground=colors[9],
+            border=colors[8],
+            foreground=colors[2],
             margin=2,
             txt_floating='🗗',
             txt_minimized='>_ ',
             borderwidth = 1,
-            background=colors[20],
+            background=colors[7],
             #unfocused_border = 'border'
         ),
         widget.CurrentLayoutIcon(
             # custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
-            foreground = colors[5],
-            background = colors[3],
+            foreground = colors[2],
+            background = colors[9],
             padding = 0,
             scale = 0.7
         ),
-        # widget.CurrentLayout(
-        #     font = "Noto Sans Bold",
-        #     fontsize = 12,
-        #     foreground = colors[5],
-        #     background = colors[3]
-        # ),                
+        widget.CurrentLayout(
+            font = "Noto Sans Bold",
+            fontsize = 12,
+            foreground = colors[2],
+            background = colors[9]
+        ),                
     ]
 
 primary_widgets = [
     *init_widgets_list(),
     widget.Net(
-        font="Noto Sans",
+        font="Noto Sans Bold",
         fontsize=12,
         # Here enter your network name
         interface=["wlp6s0"],
         format = '{down} ↓↑ {up}',
-        foreground=colors[5],
-        background=colors[19],
+        foreground=colors[2],
+        background=colors[10],
         padding = 0,
     ),
     widget.CPU(
-        font="Noto Sans",
+        font="Noto Sans Bold",
         #format = '{MemUsed}M/{MemTotal}M',
         update_interval = 1,
         fontsize = 12,
-        foreground = colors[5],
-        background = colors[22],
+        foreground = colors[2],
+        background = colors[11],
         mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn(myTerm + ' -e htop')},
     ),
     widget.Memory(
-        font="Noto Sans",
+        font="Noto Sans Bold",
         format = '{MemUsed: .0f}M/{MemTotal: .0f}M',
         update_interval = 1,
         fontsize = 12,
         measure_mem = 'M',
-        foreground = colors[5],
-        background = colors[16],
+        foreground = colors[2],
+        background = colors[13],
         mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn(myTerm + ' -e htop')},
     ),
     widget.Clock(
-        foreground = colors[9],
-        background = colors[23],
+        font="Noto Sans Bold",
         fontsize = 12,
-        format="%Y-%m-%d %H:%M"
+        foreground = colors[2],
+        background = colors[12],
+        format="%H:%M %d.%m"
     ),
     widget.Systray(
-        background=colors[10],
+        background=colors[1],
         icon_size=20,
         padding = 4
     ),
@@ -135,10 +136,5 @@ primary_widgets = [
 
 secondary_widgets = [
     *init_widgets_list(),
-    widget.Clock(
-        foreground = colors[9],
-        background = colors[23],
-        fontsize = 12,
-        format="%Y-%m-%d %H:%M"
-    ),
+    primary_widgets[9],
 ]
