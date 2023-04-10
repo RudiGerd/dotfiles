@@ -1,34 +1,40 @@
-# import libqtile.lazy as lazy
+import json
+import os
 
-# walcolors = []
-# cache='/home/username/.cache/wal/colors'
-# def load_colors(cache):
-#     with open(cache, 'r') as file:
-#         for i in range(8):
-#             colors.append(file.readline().strip())
-#     colors.append('#ffffff')
-#     lazy.reload()
-# load_colors(cache)
+def set_random_wallpaper_and_colors(wallpapers_dir):
+    os.system(f"wal -i '{wallpapers_dir}'")
 
-def init_colors():
+def get_colorscheme_file():
+    cache_dir = os.path.expanduser("~/.cache/wal/")
+    with open(os.path.join(cache_dir, "colors.json"), "r") as file:
+        return json.load(file)
+
+def init_colors(wal_colors):
     return [
-            ["#212121", "#212121"], # 0 foreground
-            ["#6272a4", "#6272a4"], # 1 groupbox-bg/systray-bg
-            ["#ffffff", "#ffffff"], # 2 active font
-            ["#2F343F", "#2F343F"], # 3 inactive screen/tasklist-bg
-                # groupbox colors
-            ["#ffd47e", "#ffd47e"], # 4 inactive font
-            ["#abb2bf", "#abb2bf"], # 5 active screen
-            ["#2aa899", "#2aa899"], # 6 unsigned
-                # tasklist colors
-            ["#44475a", "#44475a"], # 7 background
-            ["#ff5555", "#ff5555"], # 8 border
-                # widget colors
-            ["#ff5555", "#ff5555"], # 9 CurrentLayout
-            ["#56b6c2", "#56b6c2"], # 10 Net
-            ["#bd93f9", "#bd93f9"], # 11 CPU
-            ["#ffb86c", "#ffb86c"], # 12 Clock
-            ["#2aa899", "#2aa899"], # 13 Memory
-            ["#6790eb", "#6790eb"], # 14
-        ]
-colors = init_colors()
+        "#212121", # 0 foreground
+        "#6272a4", # 1 groupbox-bg/systray-bg
+        "#ffffff", # 2 active font
+        "#2F343F", # 3 inactive screen/tasklist-bg
+        "#ffd47e", # 4 inactive font
+        "#abb2bf", # 5 active screen
+        "#2aa899", # 6 unsigned
+        "#44475a", # 7 background
+        "#ff5555", # 8 border
+        wal_colors["color0"], # 9 CurrentLayout
+        wal_colors["color1"], # 10 Net
+        wal_colors["color2"], # 11 CPU
+        wal_colors["color3"], # 12 Clock
+        wal_colors["color4"], # 13 Memory
+        wal_colors["color5"], # 14
+    ]
+
+wallpapers_dir = "/home/rudigerd/.config/wallpapers"
+
+# Set random wallpaper and colors using PyWal
+set_random_wallpaper_and_colors(wallpapers_dir)
+
+# Get the colorscheme data
+colors_data = get_colorscheme_file()
+
+# Initialize colors with PyWal colors
+colors = init_colors(colors_data['colors'])
