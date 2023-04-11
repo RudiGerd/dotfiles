@@ -3,6 +3,7 @@ from libqtile.command import lazy
 from libqtile.widget import Spacer
 from settings.keys import myTerm
 from settings.colors import colors
+from settings.net import active_interfaces
 from settings.path import *
 import socket
 import os
@@ -95,7 +96,7 @@ primary_widgets = [
         font="Noto Sans Bold",
         fontsize=12,
         # Here enter your network name
-        interface=["wlp6s0"],
+        interface=active_interfaces,
         format = '{down} ↓↑ {up}',
         foreground=colors[2],
         background=colors[10],
