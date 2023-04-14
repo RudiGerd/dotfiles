@@ -1,19 +1,19 @@
 from libqtile import layout, hook
 from libqtile.config import Match
-from settings.colors import colors
+from settings.theme import colors
 
 def init_layout_theme():
     return {"margin":10,
             "border_width":2,
-            "border_focus": "#ff00ff",
-            "border_normal": "#f4c2c2"
+            "border_focus": colors['system1'],
+            "border_normal": colors['system3']
             }
 
 layout_theme = init_layout_theme()
 
 layouts = [
-    layout.MonadTall(margin=8, border_width=2, border_focus="#ff00ff", border_normal="#f4c2c2"),
-    layout.MonadWide(margin=8, border_width=2, border_focus="#ff00ff", border_normal="#f4c2c2"),
+    layout.MonadTall(margin=8, border_width=2, border_focus=colors['system1'], border_normal=colors['system3']),
+    layout.MonadWide(margin=8, border_width=2, border_focus=colors['system1'], border_normal=colors['system3']),
     #layout.Matrix(**layout_theme),
     layout.Bsp(**layout_theme),
     layout.Floating(**layout_theme),
@@ -58,10 +58,6 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='Lxpolkit'),
     Match(wm_class='yad'),
     Match(wm_class='Yad'),
-    Match(wm_class='Cairo-dock'),
-    Match(wm_class='cairo-dock'),
-
-
 ],  fullscreen_border_width = 0, border_width = 0)
 
 @hook.subscribe.client_new
