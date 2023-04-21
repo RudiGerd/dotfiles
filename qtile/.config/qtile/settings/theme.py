@@ -4,8 +4,8 @@ import json
 import os
 
 wallpapers_dir = "~/.config/wallpapers"
-color_theme_dir = '/usr/lib/python3.10/site-packages/pywal/colorschemes' # '~/.cache/wal'
-color_theme = '/dark/base16-oceanicnext.json' # '/colors.json'
+color_theme_dir = '~/.cache/wal' # '/usr/lib/python3.10/site-packages/pywal/colorschemes' #
+color_theme = '/colors.json' #  '/dark/base16-oceanicnext.json' #
 
 def set_wallpaper(wallpapers_dir):
     path = os.path.expanduser(wallpapers_dir)
@@ -51,12 +51,9 @@ def init_colors(special, colors):
         'widget5': colors["color13"],
         'widget6': colors["color14"],
             # Widgets extra colors
-        'widget1_extra': colors["color1"],
-        'widget2_extra': colors["color2"],
-        'widget3_extra': colors["color3"],
-        'widget4_extra': colors["color4"],
-        'widget5_extra': colors["color5"],
-        'widget6_extra': colors["color6"],
+        'widget7': colors["color1"],
+        'widget8': colors["color2"],
+        'widget9': colors["color3"]
     }
 
 # Set random wallpaper and colors using PyWal

@@ -3,8 +3,6 @@ from settings.keys import myTerm
 from settings.theme import colors, fonts
 from settings.net import active_interfaces
 from settings.path import *
-import socket
-import os
 
 def base(fg='base_dark', bg='base_light'):
     return {"foreground": colors[fg], "background": colors[bg]}
@@ -15,16 +13,15 @@ def powerline(fg='base_dark', bg='base_light', pl=""):
     )
 
 def init_widgets():
-    prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
     return [
         widget.TextBox(
             font=fonts['font_bold'],
-            text = 'Start',
-            fontsize = 15,
-            background = colors['system6'],
+            text = '',
+            fontsize = 14,
+            background = colors['system4'],
             mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn('jgmenu_run')}
         ),
-        powerline(fg='system6', pl=""),
+        powerline(fg='system4', pl=""),
         widget.GroupBox(
             **base(),
             font=fonts['font_nerd'],
@@ -45,14 +42,18 @@ def init_widgets():
             other_screen_border=colors['base_light'],
             disable_drag=True
         ),
-        powerline(fg='system6'),
-        list_widgets('CurrentLayoutIcon', background='system6'),
+        powerline(fg='system4'),
+        widget.CurrentLayoutIcon(
+            **base(fg='system4', bg='system4'),
+            padding = 0,
+            scale = 1
+        ),
         widget.Sep(
-            **base(bg='system6'),
+            **base(bg='system4'),
             linewidth = 0,
             padding = 3,
         ),
-        powerline(fg='system6', pl=""),
+        powerline(fg='system4', pl=""),
         widget.TaskList(
             **base(),
             font=fonts['font_bold'],
@@ -67,99 +68,122 @@ def init_widgets():
             margin=2,
             txt_floating='🗗',
             txt_minimized='>_ ',
-            borderwidth = 1,
-            #unfocused_border = 'border'
+            borderwidth = 1
         )
     ]
 
-def list_widgets(describe, forground='base_dark', background='base_light'):
+def list_widgets(list_describe, list_forground='base_dark', list_background='base_light'):
     widget_font = fonts['font_bold']
     widget_fontsize = 12
     widgets = {
-        'CurrentLayoutIcon' : widget.CurrentLayoutIcon(
-            **base(fg=forground, bg=background),
-            padding = 0,
-            scale = 1
-        ),
-        'CurrentLayout' : widget.CurrentLayout(
-            **base(fg=forground, bg=background),
-            font = widget_font,
-            fontsize = widget_fontsize
-        ),
-        'Net' : widget.Net(
-            **base(fg=forground, bg=background),
+        'Net' : [widget.Net(
+            **base(fg=list_forground, bg=list_background),
             font=widget_font,
             fontsize=widget_fontsize,
             interface=active_interfaces,
             format = '{down} ↓↑ {up}',
             padding = 0,
-        ),
-        'CPU' : widget.CPU(
-            **base(fg=forground, bg=background),
+        )],
+        'CPU' : [widget.CPU(
+            **base(fg=list_forground, bg=list_background),
             font=widget_font,
             fontsize = widget_fontsize,
             update_interval = 1,
             mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn(myTerm + ' -e htop')},
-        ),
-        'Memory' : widget.Memory(
-            **base(fg=forground, bg=background),
+        )],
+        'Memory' : [widget.Memory(
+            **base(fg=list_forground, bg=list_background),
             font=widget_font,
             fontsize = widget_fontsize,
             format = '{MemUsed: .0f}M/{MemTotal: .0f}M',
             update_interval = 1,
             measure_mem = 'M',
             mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn(myTerm + ' -e htop')},
-        ),
-        'Clock' : widget.Clock(
-            **base(fg=forground, bg=background),
+        )],
+        'Clock' : [widget.Clock(
+            **base(fg=list_forground, bg=list_background),
             font=widget_font,
             fontsize = widget_fontsize,
-            format="%H:%M %d.%m"
+            format="%H:%M - %d.%m.%Y",
+            mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('yad --calendar')},
+        )],
+        'DF' : [widget.DF(
+            **base(fg=list_forground, bg=list_background),
+            font=widget_font,
+            fontsize = widget_fontsize,
+            format = '{uf}{m} - {r:.0f}%',
+            visible_on_warn = False,
+            warn_space = 10,
+            partition = '/',
+            update_interval = 1,
+            mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn(myTerm + ' -e ranger')},
+        )],
+        'KeyboardLayout' : [widget.KeyboardLayout(
+            **base(fg=list_forground, bg=list_background),
+            font=widget_font,
+            fontsize = widget_fontsize,
+            configured_keyboards = ['de', 'eu', 'us'],
+            display_map = {'de': 'DE ', 'eu': 'EU ', 'us': 'US '},
+            padding = 0,
+        )],
+        'Sensors' : [widget.NvidiaSensors(
+            **base(fg=list_forground, bg=list_background),
+            font=widget_font,
+            fontsize = widget_fontsize,
+            format = 'GPU {temp}°C',
+            update_interval = 1,
+            forground_alert = colors['system1'],
+            mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn(myTerm + ' -e nvidia-settings')},
         ),
-        'Systray' : widget.Systray(
-            **base(fg=forground, bg=background),
-            icon_size=20,
-            padding = 4
-        ),
+                    widget.ThermalZone(
+            **base(fg=list_forground, bg=list_background),
+            font=widget_font,
+            fontsize = widget_fontsize,
+            format = ' CPU: {temp}°C',
+            update_interval = 1,
+            threshold = 90,
+            forground_alert = colors['system1'],
+            mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn(myTerm + ' -e sensors')},
+        )],
     }
-    return widgets[describe]
+    return widgets[list_describe]
+
+def box_widget(box_describe, box_icon, box_background):
+    powercolor = f'widget{int(box_background[-1])-1}' if int(box_background[-1]) > 1 else 'base_light'
+    return [
+        powerline(fg=box_background, bg=powercolor), 
+        widget.WidgetBox(
+            **base(bg=box_background),
+            widgets=list_widgets(list_describe=box_describe, list_background=box_background),
+            text_closed=box_icon,
+            text_open=box_icon,
+            fontsize=16
+        )
+    ]
 
 primary_widgets = [
     *init_widgets(),
-    powerline(fg='widget1'),
-    widget.WidgetBox(
-        **base(bg='widget1'),
-        widgets = [list_widgets(describe = 'Net', background='widget1')],
-        text_closed=" ",
-        text_open=" ",
-        fontsize=24
+    *box_widget(box_describe='Net', box_icon=' ', box_background='widget1'),
+    *box_widget(box_describe='CPU', box_icon=' ', box_background='widget2'),
+    *box_widget(box_describe='Sensors', box_icon=' ', box_background='widget3'),
+    *box_widget(box_describe='Memory', box_icon=' ', box_background='widget4'),
+    *box_widget(box_describe='DF', box_icon=' ', box_background='widget5'),
+    powerline(fg='widget6', bg='widget5'),
+    *list_widgets(list_describe = 'Clock', list_background='widget6'),
+    powerline(fg='widget7', bg='widget6'),
+    *list_widgets(list_describe = 'KeyboardLayout', list_background='widget7'),
+    powerline(fg='base_light', bg='widget7'),
+    widget.Systray(
+        background=colors['base_light'],
+        icon_size=20,
+        padding = 4
     ),
-    powerline(fg='widget2', bg='widget1'),
-    widget.WidgetBox(
-        **base(bg='widget2'),
-        widgets = [list_widgets(describe = 'CPU', background='widget2')], 
-        text_closed=" ",
-        text_open=" ",
-        fontsize=24
-    ),
-    powerline(fg='widget3', bg='widget2'),
-    widget.WidgetBox(
-        **base(bg='widget3'),
-        widgets = [list_widgets(describe = 'Memory', background='widget3')],
-        text_closed=" ",
-        text_open=" ",
-        fontsize=24
-    ),
-    powerline(fg='widget4', bg='widget3'),
-    list_widgets(describe = 'Clock', background='widget4'),
-    powerline(fg='base_light', bg='widget4'),
-    list_widgets(describe = 'Systray'),
 ]
 
 secondary_widgets = [
     *init_widgets(),
-    powerline(fg='widget4'),
-    list_widgets(describe = 'Clock', background='widget4'),
+    powerline(fg='widget5'),
+    *list_widgets(list_describe = 'Clock', list_background='widget5'),
 ]
 
 widget_defaults = {
