@@ -40,20 +40,16 @@ def init_colors(special, colors):
         'system1': colors["color1"],
         'system2': colors["color2"],
         'system3': colors["color3"],
-        'system4': colors["color4"],
-        'system5': colors["color5"],
-        'system6': colors["color6"],
             # Widgets colors
-        'widget1': colors["color9"],
-        'widget2': colors["color10"],
-        'widget3': colors["color11"],
-        'widget4': colors["color12"],
-        'widget5': colors["color13"],
-        'widget6': colors["color14"],
-            # Widgets extra colors
-        'widget7': colors["color1"],
-        'widget8': colors["color2"],
-        'widget9': colors["color3"]
+        'widget1': colors["color4"],
+        'widget2': colors["color5"],
+        'widget3': colors["color6"],
+        'widget4': colors["color9"],
+        'widget5': colors["color10"],
+        'widget6': colors["color11"],
+        'widget7': colors["color12"],
+        'widget8': colors["color13"],
+        'widget9': colors["color14"],
     }
 
 # Set random wallpaper and colors using PyWal

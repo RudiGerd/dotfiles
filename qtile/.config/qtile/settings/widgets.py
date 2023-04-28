@@ -18,10 +18,10 @@ def init_widgets():
             font=fonts['font_bold'],
             text = '',
             fontsize = 14,
-            background = colors['system4'],
+            background = colors['system2'],
             mouse_callbacks = {'Button1': lambda : qtile.cmd_spawn('jgmenu_run')}
         ),
-        powerline(fg='system4', pl=""),
+        powerline(fg='system2', pl=""),
         widget.GroupBox(
             **base(),
             font=fonts['font_nerd'],
@@ -42,18 +42,18 @@ def init_widgets():
             other_screen_border=colors['base_light'],
             disable_drag=True
         ),
-        powerline(fg='system4'),
+        powerline(fg='system2'),
         widget.CurrentLayoutIcon(
-            **base(fg='system4', bg='system4'),
+            **base(fg='system2', bg='system2'),
             padding = 0,
             scale = 1
         ),
         widget.Sep(
-            **base(bg='system4'),
+            **base(bg='system2'),
             linewidth = 0,
             padding = 3,
         ),
-        powerline(fg='system4', pl=""),
+        powerline(fg='system2', pl=""),
         widget.TaskList(
             **base(),
             font=fonts['font_bold'],
