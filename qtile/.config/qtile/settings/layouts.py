@@ -2,18 +2,16 @@ from libqtile import layout, hook
 from libqtile.config import Match
 from settings.theme import colors
 
-def init_layout_theme():
-    return {"margin":10,
-            "border_width":2,
-            "border_focus": colors['system1'],
-            "border_normal": colors['system3']
-            }
-
-layout_theme = init_layout_theme()
+layout_theme = {
+    "margin": 4,
+    "border_width": 3,
+    "border_focus": 'green',
+    "border_normal": 'red'
+    }
 
 layouts = [
-    layout.MonadTall(margin=8, border_width=2, border_focus=colors['system1'], border_normal=colors['system3']),
-    layout.MonadWide(margin=8, border_width=2, border_focus=colors['system1'], border_normal=colors['system3']),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
     #layout.Matrix(**layout_theme),
     layout.Bsp(**layout_theme),
     layout.Floating(**layout_theme),

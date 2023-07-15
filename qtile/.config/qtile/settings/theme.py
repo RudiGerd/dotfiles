@@ -5,7 +5,7 @@ import os
 
 wallpapers_dir = "~/.config/wallpapers"
 color_theme_dir = '~/.cache/wal' # '/usr/lib/python3.10/site-packages/pywal/colorschemes' #
-color_theme = '/colors.json' #  '/dark/base16-oceanicnext.json' #
+color_theme = '/dark/base16-oceanicnext.json' #'/colors.json' #
 
 def set_wallpaper(wallpapers_dir):
     path = os.path.expanduser(wallpapers_dir)

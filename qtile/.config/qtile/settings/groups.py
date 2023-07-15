@@ -5,11 +5,11 @@ from settings.keys import mod, keys
 # Define groups
 groups = [
     Group("1", label="1: ", layout="monadtall"),
-    Group("2", label="2: ", layout="bsp"),
+    Group("2", label="2: ", layout="monadtall"),
     Group("3", label="3: ", layout="max"),
-    Group("4", label="4: ", layout="bsp"),
+    Group("4", label="4: ", layout="monadtall"),
     Group("5", label="5: ", layout="monadtall"),
-    Group("6", label="6: ", layout="bsp"),
+    Group("6", label="6: ", layout="monadtall"),
     Group("7", label="7: ", layout="monadtall"),
     Group("8", label="8: ", layout="max"),
     Group("9", label="9: ", layout="max"),
@@ -28,6 +28,8 @@ for i in groups:
         #Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
 # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
+# NEXT MONITOR
+        Key([mod], "period", lazy.next_screen()),
     ])
 
 @lazy.function
